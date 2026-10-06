@@ -396,7 +396,7 @@ if (TG_ID) setTimeout(() => {
   const nick = qs.get("tg") ? " (@" + qs.get("tg").replace(/^@/, "").replace(/[<>&"]/g, "") + ")" : "";
   box.innerHTML = '<input id="tgUser" type="hidden" value="' + (qs.get("tg") || "").replace(/[<>&"]/g, "") + '">'
     + '<div style="display:flex;align-items:center;gap:10px;font-size:14.5px"><span style="color:var(--ok);font-size:18px">✓</span>'
-    + '<span>Linked to your Telegram account' + nick + ' - we'll know whose payment it is, nothing to fill in.</span></div>';
+    + '<span>Linked to your Telegram account' + nick + ' - we will know whose payment it is, nothing to fill in.</span></div>';
 }, 0);
 const botLink = "https://t.me/" + BOT_USERNAME;
 document.getElementById("trialBtn").href = botLink;

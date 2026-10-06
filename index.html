@@ -329,7 +329,7 @@
   <div class="tgbox">
     <label for="tgUser">Your Telegram username</label>
     <input id="tgUser" placeholder="@yourname" autocomplete="off">
-    <small>So we can switch on your access right after payment. Find it in Telegram → Settings.</small>
+    <small>So we can switch on your access right after payment. Find it in Telegram → Settings. No username? Open this page from the bot: More → Subscription.</small>
   </div>
   <div class="payrow">Secure checkout by Paddle
     <span class="paypill">Apple Pay</span><span class="paypill">Google Pay</span><span class="paypill">Visa</span><span class="paypill">Mastercard</span><span class="paypill">PayPal</span>
@@ -385,6 +385,19 @@ const PLANS = [
 const FEATURES = ["All 4 load boards", "Unlimited searches", "Instant Telegram alerts", "Route & radius search", "Deal score on every load"];
 
 document.getElementById("yr").textContent = new Date().getFullYear();
+// opened from the bot's Mini App (More → Subscription): ?tg=<username>&tid=<telegram id>
+const qs = new URLSearchParams(location.search);
+const TG_ID = (qs.get("tid") || "").replace(/\D/g, "");
+if (qs.get("tg")) setTimeout(() => { const i = document.getElementById("tgUser"); if (i && !i.value) i.value = "@" + qs.get("tg").replace(/^@/, ""); }, 0);
+// Opened from the Mini App = we already know the Telegram account (its numeric id, which every account has,
+// with or without a @username) -> no need to ask: show a "linked" note instead of the input.
+if (TG_ID) setTimeout(() => {
+  const box = document.querySelector(".tgbox"); if (!box) return;
+  const nick = qs.get("tg") ? " (@" + qs.get("tg").replace(/^@/, "").replace(/[<>&"]/g, "") + ")" : "";
+  box.innerHTML = '<input id="tgUser" type="hidden" value="' + (qs.get("tg") || "").replace(/[<>&"]/g, "") + '">'
+    + '<div style="display:flex;align-items:center;gap:10px;font-size:14.5px"><span style="color:var(--ok);font-size:18px">✓</span>'
+    + '<span>Linked to your Telegram account' + nick + ' - we'll know whose payment it is, nothing to fill in.</span></div>';
+}, 0);
 const botLink = "https://t.me/" + BOT_USERNAME;
 document.getElementById("trialBtn").href = botLink;
 document.getElementById("contactLink").href = botLink + "?start=contact";
@@ -434,7 +447,7 @@ document.getElementById("plans").addEventListener("click", e => {
   const tgUser = document.getElementById("tgUser").value.trim().replace(/^@/, "");
   Paddle.Checkout.open({
     items: [{ priceId, quantity: 1 }],
-    customData: { telegram: tgUser || null, plan: b.dataset.plan },
+    customData: { telegram: tgUser || null, telegram_id: TG_ID || null, plan: b.dataset.plan },
     settings: { displayMode: "overlay", theme: "dark", locale: "en" },
   });
 });

@@ -331,7 +331,7 @@
     <input id="tgUser" placeholder="@yourname" autocomplete="off">
     <small>So we can switch on your access right after payment. Find it in Telegram → Settings. No username? Open this page from the bot: More → Subscription.</small>
   </div>
-  <p style="text-align:center;color:var(--text3);font-size:13.5px;margin:22px 0 0">Prices in USD, before tax. Sales tax / VAT, where it applies, is added at checkout based on your location.<br>Plans renew automatically - cancel any time. <b style="color:var(--text2)">14-day money-back guarantee.</b> By subscribing you agree to our <a href="terms.html" style="color:var(--accent)">Terms</a> and <a href="refund.html" style="color:var(--accent)">Refund Policy</a>.<br>Orders are processed by Paddle.com, our Merchant of Record.</p>
+  <p style="text-align:center;color:var(--text3);font-size:13.5px;margin:22px 0 0">Prices in USD and include VAT / sales tax - the price you see is the price you pay.<br>Plans renew automatically - cancel any time. <b style="color:var(--text2)">14-day money-back guarantee.</b> By subscribing you agree to our <a href="terms.html" style="color:var(--accent)">Terms</a> and <a href="refund.html" style="color:var(--accent)">Refund Policy</a>.<br>Orders are processed by Paddle.com, our Merchant of Record.</p>
   <div class="payrow">Secure checkout by Paddle
     <span class="paypill">Apple Pay</span><span class="paypill">Google Pay</span><span class="paypill">Visa</span><span class="paypill">Mastercard</span><span class="paypill">PayPal</span>
   </div>
@@ -346,7 +346,7 @@
     <details><summary>Does the plan renew automatically?</summary><p>Yes, at the end of each period, so your alerts never stop. Cancel any time from the receipt email - you keep access until the period ends.</p></details>
     <details><summary>Can I get a refund?</summary><p>Yes - there is a 14-day money-back guarantee. Request it at paddle.net or email omvstudio.dev@gmail.com. See our <a href="refund.html" style="color:var(--accent)">Refund Policy</a>.</p></details>
     <details><summary>Who do I contact for support?</summary><p>Write to omvstudio.dev@gmail.com or use Contact us inside the bot. Payment and invoice questions are also handled by Paddle at paddle.net.</p></details>
-    <details><summary>How do I pay?</summary><p>Apple Pay, Google Pay, Visa, Mastercard or PayPal through Paddle, our payment partner. Paddle also handles taxes and invoices.</p></details>
+    <details><summary>How do I pay?</summary><p>Apple Pay, Google Pay, Visa, Mastercard or PayPal through Paddle, our payment partner. Prices already include taxes; Paddle issues the invoice.</p></details>
   </div>
 </div></section>
 
@@ -371,19 +371,19 @@
 const ENVIRONMENT  = "sandbox";
 const PADDLE_TOKEN = "test_f6757a843db177d85bdc3061b57";   // sandbox client-side token "HaulHawk website"
 const PRICE_IDS = {                   // e.g. "pri_01h..."
-  m1:  "pri_01m44ca03bp56y5kpqqz08k16a",   // $20 every month
-  m3:  "pri_01m496f2rgv340cy3b2y6x2n9v",   // $55 every 3 months
-  m6:  "pri_01m496gyzrxa2gpdj0agwn35cw",   // $105 every 6 months
-  m12: "pri_01m496dm11xv7m0xftqkjhxcxc",   // $199 every year
+  m1:  "pri_01m44ca03bp56y5kpqqz08k16a",   // $25 every month (tax included)
+  m3:  "pri_01m496f2rgv340cy3b2y6x2n9v",   // $69 every 3 months
+  m6:  "pri_01m496gyzrxa2gpdj0agwn35cw",   // $129 every 6 months
+  m12: "pri_01m496dm11xv7m0xftqkjhxcxc",   // $249 every year
 };
 const BOT_USERNAME = "central0217bot";
 /* ============================================================ */
 
 const PLANS = [
-  { id: "m1",  months: 1,  price: 20,  label: "1 month" },
-  { id: "m3",  months: 3,  price: 55,  label: "3 months" },
-  { id: "m6",  months: 6,  price: 105, label: "6 months", best: true },
-  { id: "m12", months: 12, price: 199, label: "12 months" },
+  { id: "m1",  months: 1,  price: 25,  label: "1 month" },
+  { id: "m3",  months: 3,  price: 69,  label: "3 months" },
+  { id: "m6",  months: 6,  price: 129, label: "6 months", best: true },
+  { id: "m12", months: 12, price: 249, label: "12 months" },
 ];
 const FEATURES = ["All 4 load boards", "Unlimited searches", "Instant Telegram alerts", "Route & radius search", "Deal score on every load"];
 
@@ -439,6 +439,10 @@ try {
     paddleReady = true;
   }
 } catch (e) { console.error("Paddle init:", e); }
+
+// opened from the Mini App with a plan already chosen (?plan=m3): open that checkout straight away
+const PRESET_PLAN = PRICE_IDS[qs.get("plan")] ? qs.get("plan") : "";
+if (PRESET_PLAN) setTimeout(() => { const b = document.querySelector('[data-plan="' + PRESET_PLAN + '"]'); if (b && paddleReady) b.click(); }, 600);
 
 document.getElementById("plans").addEventListener("click", e => {
   const b = e.target.closest("[data-plan]"); if (!b) return;

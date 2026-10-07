@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car Hauler Dispatch — loads for owner-operators</title>
+<meta name="description" content="Dispatch service for car-hauling owner-operators: we find and book the loads, talk to brokers and handle the paperwork. 4% open, 3% enclosed. No contracts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F6F8; --card:#FFFFFF; --ink:#13161C; --ink2:#454B57; --ink3:#7A8090; --line:#E3E6EC;
+    --accent:#1F6FEB; --accent2:#1859BF; --tint:#E8F0FD; --ok:#1C8A50; --okbg:#E4F5EB;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.15}
+  a{color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 26px;border-radius:12px;font:700 16px Inter,sans-serif;text-decoration:none;border:0;cursor:pointer;background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(31,111,235,.28)}
+  .btn:hover{background:var(--accent2)}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+
+  nav{position:sticky;top:0;z-index:10;background:rgba(245,246,248,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--ink);text-decoration:none}
+  .logo{width:32px;height:32px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:17px}
+  nav .btn{height:40px;padding:0 16px;font-size:14px;box-shadow:none}
+
+  header.hero{padding:64px 0 40px}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--tint);padding:5px 11px;border-radius:999px;margin-bottom:18px}
+  .hero h1{font-size:clamp(34px,5vw,54px);font-weight:800}
+  .hero h1 span{color:var(--accent)}
+  .hero p.lead{font-size:18px;color:var(--ink2);margin:18px 0 28px;max-width:560px}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .fee{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 20px 50px rgba(20,30,50,.08)}
+  .fee h3{font-size:15px;color:var(--ink3);font-weight:600;margin-bottom:14px}
+  .rate{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}
+  .rate:first-of-type{border-top:0}
+  .rate b{font-size:44px;font-weight:800;letter-spacing:-.03em}
+  .rate span{color:var(--ink2);font-weight:600}
+  .fee ul{margin:14px 0 0;padding:0;list-style:none;color:var(--ink2);font-size:14.5px}
+  .fee li{padding:4px 0 4px 24px;position:relative}
+  .fee li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+  section{padding:56px 0}
+  .sechead{max-width:640px;margin-bottom:28px}
+  .sechead h2{font-size:clamp(26px,3.4vw,36px);font-weight:800}
+  .sechead p{color:var(--ink2);margin:10px 0 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .card .ic{font-size:26px}
+  .card h3{font-size:17px;margin:10px 0 6px}
+  .card p{margin:0;color:var(--ink2);font-size:15px}
+  .steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px}
+  .steps .card:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--accent);font-weight:800}
+  .who{display:flex;flex-wrap:wrap;gap:8px}
+  .who span{background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:999px;font-weight:600;font-size:14.5px;color:var(--ink2)}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+  .faq summary{font-weight:700;cursor:pointer;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+";float:right;color:var(--ink3);font-weight:600}
+  .faq details[open] summary:after{content:"–"}
+  .faq p{margin:10px 0 0;color:var(--ink2)}
+
+  #apply .box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;display:grid;grid-template-columns:.8fr 1.2fr;gap:32px}
+  #apply .box > div:first-child p{color:var(--ink2)}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .f{display:flex;flex-direction:column;gap:6px}
+  .f.full{grid-column:1/-1}
+  .f label{font-size:13.5px;font-weight:600;color:var(--ink2)}
+  .f input,.f select,.f textarea{font:inherit;font-size:15px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);outline:none;width:100%}
+  .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,111,235,.15)}
+  .f textarea{min-height:90px;resize:vertical}
+  .seg{display:flex;gap:8px}
+  .seg label{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid var(--line);border-radius:10px;padding:10px;cursor:pointer;font-weight:600;color:var(--ink2);font-size:14.5px}
+  .seg input{accent-color:var(--accent);width:auto;margin:0}
+  .seg label:has(input:checked){border-color:var(--accent);background:var(--tint);color:var(--ink)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .formfoot{grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .formfoot small{color:var(--ink3);flex:1;min-width:200px}
+  #msg{grid-column:1/-1;display:none;padding:12px 14px;border-radius:12px;font-weight:600}
+  #msg.ok{display:block;background:var(--okbg);color:var(--ok)}
+  #msg.err{display:block;background:#FDECEC;color:#B42318}
+
+  footer{padding:30px 0 50px;color:var(--ink3);font-size:13.5px;text-align:center}
+
+  @media (max-width:860px){
+    .hero .wrap,#apply .box{grid-template-columns:1fr}
+    header.hero{padding-top:40px}
+  }
+  @media (max-width:560px){ form{grid-template-columns:1fr} .f{grid-column:1/-1} }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="logo">🚛</span>Car Hauler Dispatch</a>
+  <a class="btn" href="#apply">Apply</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="eyebrow">Dispatch for car-hauling owner-operators</span>
+    <h1>You drive. <span>We keep your trailer full.</span></h1>
+    <p class="lead">We find and book the loads, negotiate with brokers, plan your next pick-up before you deliver, and handle the paperwork - so you spend your day driving, not calling and refreshing load boards.</p>
+    <div class="ctas"><a class="btn" href="#apply">Apply in 2 minutes</a><a class="btn ghost" href="#how">How it works</a></div>
+  </div>
+  <div class="fee">
+    <h3>Simple pricing - only on loads we book</h3>
+    <div class="rate"><span>Open trailers</span><b>4%</b></div>
+    <div class="rate"><span>Enclosed trailers</span><b>3%</b></div>
+    <ul>
+      <li>No contracts - stop any time</li>
+      <li>No setup or monthly fees</li>
+      <li>You decide which loads to take</li>
+    </ul>
+  </div>
+</div></header>
+
+<section id="what"><div class="wrap">
+  <div class="sechead"><h2>What we do for you</h2><p>Everything between "I'm empty" and "the broker paid".</p></div>
+  <div class="grid">
+    <div class="card"><div class="ic">🔎</div><h3>Find the loads</h3><p>We watch the car-hauling load boards all day and book loads that fit your trailer, your lanes and the rate you need.</p></div>
+    <div class="card"><div class="ic">💬</div><h3>Talk to brokers</h3><p>We negotiate the rate, confirm pick-up and delivery details and keep brokers updated - you get a clear dispatch sheet.</p></div>
+    <div class="card"><div class="ic">🗺️</div><h3>Plan full trailers</h3><p>Multi-car loads and the next pick-up planned before you deliver, to keep you loaded both ways and cut empty miles.</p></div>
+    <div class="card"><div class="ic">📄</div><h3>Handle the paperwork</h3><p>Broker setup packets, insurance certificates, BOLs and invoices - and we follow up on payments that are late.</p></div>
+  </div>
+</div></section>
+
+<section id="how" style="padding-top:20px"><div class="wrap">
+  <div class="sechead"><h2>How it works</h2></div>
+  <div class="steps">
+    <div class="card"><h3>Apply</h3><p>Fill in the short form below - your truck, trailer and where you like to run.</p></div>
+    <div class="card"><h3>Quick call</h3><p>We call you back, agree on lanes and rates, and collect your MC authority, insurance certificate and W-9.</p></div>
+    <div class="card"><h3>Get loaded</h3><p>We start booking. You approve every load before it's confirmed, and pay our percentage only on the loads we book.</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+  <div class="sechead"><h2>Who we work with</h2></div>
+  <div class="who"><span>Owner-operators</span><span>Small fleets (1-5 trucks)</span><span>New MC authorities</span><span>Open & enclosed</span><span>Dually & wedge (2-4 cars)</span><span>Stingers (7-9 cars)</span><span>All 48 states</span></div>
+</div></section>
+
+<section class="faq" id="faq" style="padding-top:20px"><div class="wrap">
+  <div class="sechead"><h2>Questions</h2></div>
+  <details><summary>My MC authority is brand new. Can you still help?</summary><p>Yes. Some brokers only work with authorities that are a few months old, but many accept new carriers - we know which ones and set you up with them.</p></details>
+  <details><summary>Do I have to take every load you find?</summary><p>No. We send you the load details first and book it only after you say yes.</p></details>
+  <details><summary>How and when do I pay the dispatch fee?</summary><p>Only for loads we booked: 4% of the load rate for open trailers, 3% for enclosed. We send a simple invoice for the loads of the week.</p></details>
+  <details><summary>Is there a contract?</summary><p>No long-term contract. If it isn't working for you, you can stop at any time.</p></details>
+  <details><summary>What do you need to start?</summary><p>Your MC / USDOT number, a certificate of insurance (cargo and auto liability), a W-9 and your trailer details. We'll ask for them on the first call.</p></details>
+</div></section>
+
+<section id="apply" style="padding-top:20px"><div class="wrap">
+  <div class="box">
+    <div>
+      <h2 style="font-size:30px;font-weight:800">Apply</h2>
+      <p>Tell us a little about your truck and lanes - we'll call you back soon.</p>
+      <p style="font-size:14px;color:var(--ink3)">Your details are used only to contact you about dispatch. We never sell or share them.</p>
+    </div>
+    <form id="applyForm" novalidate>
+      <div class="f"><label for="name">Your name *</label><input id="name" name="name" required maxlength="80" autocomplete="name"></div>
+      <div class="f"><label for="company">Company</label><input id="company" name="company" maxlength="100" autocomplete="organization"></div>
+      <div class="f"><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="(555) 123-4567"></div>
+      <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" maxlength="120" autocomplete="email"></div>
+      <div class="f"><label for="mc">MC or USDOT number</label><input id="mc" name="mc" maxlength="30" placeholder="MC 1234567"></div>
+      <div class="f"><label for="state">Home base (state)</label><input id="state" name="state" maxlength="40" placeholder="e.g. Illinois"></div>
+      <div class="f full"><label>Trailer *</label>
+        <div class="seg"><label><input type="radio" name="trailer" value="Open" checked> Open</label><label><input type="radio" name="trailer" value="Enclosed"> Enclosed</label></div></div>
+      <div class="f"><label for="cars">Trailer capacity</label>
+        <select id="cars" name="cars"><option value="">Choose…</option><option>1 car</option><option>2-3 cars (dually / wedge)</option><option>4-5 cars</option><option>6-7 cars</option><option>8-10 cars (stinger)</option></select></div>
+      <div class="f"><label for="trucks">Trucks</label>
+        <select id="trucks" name="trucks"><option>1</option><option>2-3</option><option>4-5</option><option>6+</option></select></div>
+      <div class="f full"><label for="lanes">Preferred lanes / anything else</label><textarea id="lanes" name="lanes" maxlength="800" placeholder="e.g. Midwest ↔ Texas, home every weekend"></textarea></div>
+      <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="msg" role="status"></div>
+      <div class="formfoot"><button class="btn" type="submit" id="sendBtn">Send application</button><small>* required. We'll reach out by phone or email - no spam, no automated calls.</small></div>
+    </form>
+  </div>
+</div></section>
+
+<footer>© <span id="yr"></span> Car Hauler Dispatch</footer>
+
+<script>
+// Where applications go: the dispatch team's own server (it forwards each one to the team's Telegram).
+// If the server address changes, update it here.
+var APPLY_URL = "https://macs-macbook-pro.tail2a7952.ts.net/api/public/dispatch-apply";
+document.getElementById("yr").textContent = new Date().getFullYear();
+(function(){
+  var f = document.getElementById("applyForm"), msg = document.getElementById("msg"), btn = document.getElementById("sendBtn");
+  function show(kind, text){ msg.className = kind; msg.textContent = text; }
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    var d = {};
+    new FormData(f).forEach(function(v, k){ d[k] = String(v).trim(); });
+    if(!d.name){ show("err", "Please enter your name."); f.name.focus(); return; }
+    if((d.phone || "").replace(/\D/g, "").length < 7){ show("err", "Please enter a phone number we can call."); f.phone.focus(); return; }
+    btn.disabled = true; btn.textContent = "Sending…"; msg.className = "";
+    fetch(APPLY_URL, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(d) })
+      .then(function(r){ return r.json().catch(function(){ return { ok: false }; }); })
+      .then(function(j){
+        if(j && j.ok){ f.reset(); show("ok", "Thank you! We got your application and will call you back soon."); btn.textContent = "Sent ✓"; return; }
+        throw new Error((j && j.error) || "failed");
+      })
+      .catch(function(){ show("err", "Sorry, it didn't go through. Please try again in a minute."); btn.disabled = false; btn.textContent = "Send application"; });
+  });
+})();
+</script>
+</body>
+</html>

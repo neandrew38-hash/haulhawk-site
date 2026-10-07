@@ -177,6 +177,14 @@
   .hhArt{background:linear-gradient(180deg,#3B3350,#7D6070);border-radius:20px;padding:22px;transform:rotate(2deg)}
   .bubble.mini{animation:none}
   .moreWork{margin-top:16px}
+  .projGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:16px;margin-top:16px}
+  .pj{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}
+  .pj .ti{font-size:26px;line-height:1}
+  .pj h3{margin:2px 0 0;font-size:18px}
+  .pj p{margin:0;color:var(--text3);font-size:14.5px;line-height:1.55;flex:1}
+  .pj .chips{margin:4px 0 0}
+  .pj a{color:var(--accent);font-weight:700;text-decoration:none;margin-top:4px}
+  .pj a:hover{text-decoration:underline}
   .wk{background:var(--bg2);border:1px dashed #3A3A42;border-radius:20px;padding:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .wk .ti{font-size:24px}
   .wk b{font-size:17px}
@@ -252,6 +260,18 @@
       </div>
     </div>
   </a>
+  <div class="projGrid">
+    <div class="pj"><span class="ti">🔎</span><h3>DOT/MC Lookup</h3>
+      <p>Browser extension for dispatchers and brokers. It spots USDOT and MC numbers on any page - load boards, emails, rate confirmations - and shows the carrier's FMCSA profile in one click: status, authority, trucks, contacts.</p>
+      <div class="chips"><span>Chrome extension</span><span>FMCSA data</span><span>Free</span></div>
+      <a href="downloads/dot-mc-lookup.zip" download>Download for Chrome →</a></div>
+    <div class="pj"><span class="ti">🚚</span><h3>New carrier finder</h3>
+      <p>Every Monday a fresh list of newly registered car-hauling carriers from the official FMCSA register lands in Telegram - filtered, sorted by priority, with phone and email - ready for outreach.</p>
+      <div class="chips"><span>Public data</span><span>Automation</span><span>Telegram</span><span>CSV</span></div></div>
+    <div class="pj"><span class="ti">💎</span><h3>Crypto payments for Telegram bots</h3>
+      <p>Accept USDT (TRC20) right in a Telegram bot: every order gets its own amount, the blockchain is checked every minute and access turns on by itself - no payment provider, no fees, nothing to confirm by hand.</p>
+      <div class="chips"><span>Telegram bot</span><span>USDT TRC20</span><span>Blockchain</span></div></div>
+  </div>
   <div class="moreWork">
     <div class="wk"><span class="ti">🧩</span><b>Your project here</b><p>Extensions, bots and automations for teams of any size - tell me what slows you down.</p><a href="#contact">Let's talk →</a></div>
   </div>

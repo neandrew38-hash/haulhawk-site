@@ -186,6 +186,13 @@
   .shots figcaption{color:var(--text3);font-size:14px;padding:10px 4px 2px}
   .shots .col{display:grid;gap:18px}
   @media(max-width:900px){.shots{grid-template-columns:1fr}}
+  .optTip{display:flex;gap:16px;align-items:flex-start;margin-top:18px;background:var(--tint);border:1px solid rgba(255,138,61,.3);border-radius:16px;padding:18px 20px;color:var(--text2);font-size:15px}
+  .optTip .k{flex-shrink:0;font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;color:var(--accent);background:#1A1A1E;border:1px solid rgba(255,138,61,.45);border-bottom-width:3px;border-radius:10px;padding:6px 12px;white-space:nowrap}
+  .optTip b{color:var(--fg)}
+  @media(max-width:600px){.optTip{flex-direction:column}}
+  .shots{grid-template-columns:repeat(2,1fr)}
+  .shots figure img[style*='max-width:300px']{max-width:340px!important}
+  @media(max-width:700px){.shots{grid-template-columns:1fr}}
   .install{counter-reset:i;display:grid;gap:12px;max-width:760px}
   .install li{list-style:none;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 58px;position:relative;color:var(--text2)}
   .install li:before{counter-increment:i;content:counter(i);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:8px;background:var(--tint);color:var(--accent);font-weight:700;display:grid;place-items:center}
@@ -276,7 +283,7 @@
   </a>
   <div class="projGrid">
     <div class="pj"><span class="ti">🔎</span><h3>DOT/MC Lookup</h3>
-      <p>Browser extension for dispatchers and brokers. It spots USDOT and MC numbers on any page - load boards, emails, rate confirmations - and shows the carrier's FMCSA profile in one click: status, authority, trucks, contacts.</p>
+      <p>Browser extension for dispatchers and brokers. Hover any USDOT or MC number - on load boards, emails, rate confirmations - to see the carrier's authority, insurance, safety record and red flags from FMCSA data. Free and unlimited.</p>
       <div class="chips"><span>Chrome extension</span><span>FMCSA data</span><span>Free</span></div>
       <a href="#dot">See how it works →</a></div>
     <div class="pj"><span class="ti">🚚</span><h3>New carrier finder</h3>
@@ -307,55 +314,56 @@
 <header class="hero"><div class="wrap">
   <a class="back" href="#top">← All projects</a>
   <div>
-    <span class="eyebrow"><i></i>Free browser extension</span>
-    <h1>Know the carrier <em>before you pick up the phone.</em></h1>
-    <p class="lead">DOT/MC Lookup finds USDOT and MC numbers on any web page - load boards, broker emails, rate confirmations, carrier lists - and shows the carrier's official FMCSA profile in one click. No more copy, paste and search on SAFER.</p>
+    <span class="eyebrow"><i></i>Free browser extension · unlimited lookups</span>
+    <h1>Vet any carrier <em>before you pick up the phone.</em></h1>
+    <p class="lead">DOT/MC Lookup underlines USDOT and MC numbers on any web page - load boards, broker emails, rate confirmations. Hover one and see the carrier's authority, insurance, safety record and red flags from official FMCSA data. No copy-paste, no daily limits.</p>
     <div class="ctas">
       <a class="btn primary" href="dot-mc-lookup.zip" download>Download for Chrome</a>
       <a class="btn ghost" href="#dot-install">How to install</a>
     </div>
     <div class="proof">
-      <div><b>1 click</b><span>from number to profile</span></div>
-      <div><b>Free</b><span>no account, no key</span></div>
-      <div><b>0</b><span>changes to the page</span></div>
+      <div><b>Hover</b><span>no clicks, no menus</span></div>
+      <div><b>Unlimited</b><span>free, no account</span></div>
+      <div><b>24 mo</b><span>of inspections & crashes</span></div>
     </div>
   </div>
-  <img class="shotMain" src="dot-hero.webp" alt="DOT/MC Lookup card showing a carrier's FMCSA profile over a rate confirmation" width="1000" height="1172">
+  <img class="shotMain" src="dot-hero.webp" alt="DOT/MC Lookup card with a carrier's FMCSA profile over a rate confirmation" width="1000" height="1269">
 </div></header>
 
 <section id="dot-how"><div class="wrap">
-  <div class="sechead"><span class="tag">How it works</span><h2>Browse as usual. Click a number.</h2><p>It works on the sites you already use - nothing to set up.</p></div>
+  <div class="sechead"><span class="tag">How it works</span><h2>Browse as usual. Hover a number.</h2><p>It works on the sites you already use - nothing to set up.</p></div>
   <div class="steps">
-    <div class="step"><div class="n">1</div><h3>Add it to your browser</h3><p>Chrome, Brave, Edge or Opera. One orange magnifier appears in the toolbar.</p></div>
+    <div class="step"><div class="n">1</div><h3>Add it to your browser</h3><p>Chrome, Brave, Edge or Opera. An orange magnifier appears in the toolbar.</p></div>
     <div class="step"><div class="n">2</div><h3>Numbers get underlined</h3><p>"USDOT 1234567", "MC# 987654", or a number under an "MC Number" column - it recognises them all.</p></div>
-    <div class="step"><div class="n">3</div><h3>Hover for the profile</h3><p>Rest the mouse on a number - status, authority, trucks and drivers, cargo, phone, email and how long they've been in business.</p></div>
+    <div class="step"><div class="n">3</div><h3>Hover for the profile</h3><p>Rest the mouse on a number for a moment - the carrier card opens right there. Move away and it closes.</p></div>
   </div>
+  <div class="optTip"><span class="k">⌥ Option</span><div><b>Company name instead of a number?</b> Hold <b>Option</b> (Alt on Windows) and hover over the name - an exact match opens its card straight away, otherwise you get a short list to pick from. You can also select the name and right-click → <b>Look up carrier</b>.</div></div>
 </div></section>
 
 <section id="dot-shots" style="padding-top:20px"><div class="wrap">
   <div class="sechead"><span class="tag">Screenshots</span><h2>What you'll see</h2></div>
   <div class="shots">
-    <figure><img src="dot-card.webp" alt="Carrier card over a broker email" loading="lazy"><figcaption>Hover over a USDOT or MC number in an email or a rate confirmation - the carrier card opens right there.</figcaption></figure>
-    <div class="col">
-      <figure><img src="dot-popup.webp" alt="Search box in the toolbar popup" loading="lazy" style="max-width:300px;margin:0 auto"><figcaption>Search by USDOT, MC or company name in the toolbar popup. Recent lookups stay one click away - and "Clear" wipes them.</figcaption></figure>
-    </div>
-    <figure style="grid-column:1/-1"><img src="dot-table.webp" alt="MC numbers highlighted in a table" loading="lazy"><figcaption>Numbers in tables are found by their column - and order numbers or ZIP codes are left alone.</figcaption></figure>
+    <figure><img src="dot-card.webp" alt="Carrier card over a broker email" loading="lazy"><figcaption>Hover a USDOT or MC number in an email or a rate confirmation - the carrier card opens right there.</figcaption></figure>
+    <figure><img src="dot-flags.webp" alt="Red flags: no insurance, new carrier, high out-of-service rates" loading="lazy" style="max-width:300px;margin:0 auto"><figcaption>Red flags at the top: no insurance on file, brand-new authority, high out-of-service rates, pending revocation.</figcaption></figure>
+    <figure><img src="dot-good.webp" alt="Authority, insurance and safety section" loading="lazy" style="max-width:300px;margin:0 auto"><figcaption>Authority, insurance and a 24-month safety summary - and "Copy summary" for your notes or the broker.</figcaption></figure>
+    <figure><img src="dot-popup.webp" alt="Company name search in the toolbar popup" loading="lazy" style="max-width:300px;margin:0 auto"><figcaption>Search by USDOT, MC or company name in the toolbar popup. Recent lookups stay one click away - "Clear" wipes them.</figcaption></figure>
+    <figure style="grid-column:1/-1"><img src="dot-table.webp" alt="MC numbers highlighted in a table" loading="lazy"><figcaption>Numbers in tables are found by their column - order numbers and ZIP codes are left alone.</figcaption></figure>
   </div>
-  <p style="color:var(--text3);font-size:13px;margin-top:12px">Screenshots use a made-up sample carrier.</p>
+  <p style="color:var(--text3);font-size:13px;margin-top:12px">Screenshots use made-up sample carriers.</p>
 </div></section>
 
 <section id="dot-features" style="padding-top:20px"><div class="wrap">
-  <div class="sechead"><span class="tag">Features</span><h2>Small tool, saves time every day</h2></div>
+  <div class="sechead"><span class="tag">Features</span><h2>Everything you check before booking</h2></div>
   <div class="feat">
-    <div><div class="ic">🔎</div><h3>Works everywhere</h3><p>Load boards, Gmail and Outlook on the web, broker portals, carrier lists - any regular web page.</p></div>
-    <div><div class="ic">🪪</div><h3>Official data</h3><p>Straight from the FMCSA carrier register published by the US DOT - the same source as SAFER.</p></div>
-    <div><div class="ic">✅</div><h3>Spot red flags fast</h3><p>Inactive status, no authority, a carrier registered two weeks ago - visible before you book.</p></div>
-    <div><div class="ic">🏢</div><h3>Search by company name</h3><p>No number on the page? Hold Alt (Option on a Mac) and hover over the company name - an exact match opens its card. Right-click "Look up carrier" and the popup search work too.</p></div>
-    <div><div class="ic">📋</div><h3>Copy in one tap</h3><p>Click the phone or email in the card to copy it. Links to SAFER and the FMCSA safety page included.</p></div>
-    <div><div class="ic">🛡</div><h3>Private and light</h3><p>No account, no tracking. It only asks the FMCSA register about the number or name you look up.</p></div>
-    <div><div class="ic">🧩</div><h3>Leaves pages alone</h3><p>Highlighting is drawn by the browser on top of the text, so sites keep working exactly as before.</p></div>
-    <div><div class="ic">🌙</div><h3>Light and dark</h3><p>The card follows your system theme, so it fits any page and any time of day.</p></div>
-    <div><div class="ic">⚡️</div><h3>Instant repeat lookups</h3><p>Recent results are remembered for a few hours, and your last searches stay one click away in the popup.</p></div>
+    <div><div class="ic">🚩</div><h3>Red flags first</h3><p>No liability insurance, inactive or brand-new authority, revocation pending, high out-of-service rates, fatal crashes - shown at the top of the card.</p></div>
+    <div><div class="ic">🛡</div><h3>Insurance on file</h3><p>Liability (BIPD) and other filings: insurer, coverage amount, effective date - and a warning when a policy is about to be cancelled.</p></div>
+    <div><div class="ic">🪪</div><h3>Operating authority</h3><p>Carrier, contract and broker authority with their status, plus pending applications - handy for checking brokers too.</p></div>
+    <div><div class="ic">📊</div><h3>Safety record</h3><p>Inspections, vehicle and driver out-of-service rates next to the US average, and crashes from the last 24 months.</p></div>
+    <div><div class="ic">🏢</div><h3>Search by company name</h3><p>Hold Option (Alt) and hover over a name, right-click "Look up carrier", or type it in the popup.</p></div>
+    <div><div class="ic">📋</div><h3>Copy summary</h3><p>One click copies name, USDOT/MC, insurance, safety and flags as text - paste it into notes, Slack or an email.</p></div>
+    <div><div class="ic">♾️</div><h3>Unlimited and free</h3><p>No account, no daily cap. Official data from the US DOT's open FMCSA register - the same source as SAFER.</p></div>
+    <div><div class="ic">🧩</div><h3>Leaves pages alone</h3><p>Highlighting is drawn by the browser on top of the text, so load boards and web apps keep working exactly as before.</p></div>
+    <div><div class="ic">🌙</div><h3>Light and dark</h3><p>The card follows your system theme. Recent lookups stay in the popup until you clear them.</p></div>
   </div>
 </div></section>
 
@@ -365,18 +373,19 @@
     <li><a href="dot-mc-lookup.zip" download style="color:var(--accent);font-weight:700">Download the zip</a> and unzip it to a folder that will stay (for example Documents).</li>
     <li>Open <code>chrome://extensions</code> (Brave: <code>brave://extensions</code>, Edge: <code>edge://extensions</code>) and switch on <b>Developer mode</b>.</li>
     <li>Click <b>Load unpacked</b> and choose the <code>dot-mc-lookup</code> folder.</li>
-    <li>Pin the orange magnifier to the toolbar and reload the page you work on.</li>
+    <li>Pin the orange magnifier to the toolbar and <b>reload the pages</b> you work on.</li>
   </ol>
 </div></section>
 
 <section id="dot-faq" style="padding-top:20px"><div class="wrap">
   <div class="sechead"><span class="tag">FAQ</span><h2>Questions</h2></div>
   <div class="faq">
-    <details><summary>Is it really free?</summary><p>Yes. No account, no subscription, no ads.</p></details>
-    <details><summary>Where does the data come from?</summary><p>The FMCSA Company Census File - the official carrier register the US DOT publishes as open data. A brand-new carrier can take a few days to appear there.</p></details>
+    <details><summary>Is it really free and unlimited?</summary><p>Yes. No account, no daily limit, no ads.</p></details>
+    <details><summary>Where does the data come from?</summary><p>The FMCSA open data the US DOT publishes on data.transportation.gov: the carrier register, licensing and insurance filings, and roadside inspection and crash records. A brand-new carrier can take a few days to appear.</p></details>
+    <details><summary>How do I look up a company by name?</summary><p>Hold Option (Alt on Windows) and hover over the name. Or select it, right-click and choose "Look up carrier", or type it in the toolbar popup.</p></details>
+    <details><summary>Does "no red flags" mean the carrier is safe?</summary><p>It means nothing alarming is in the public FMCSA records. Always get the carrier's own certificate of insurance - cargo insurance, for example, usually isn't filed with FMCSA.</p></details>
     <details><summary>A number is a link on the page - how do I open the card?</summary><p>Just hover over it - the card opens after a moment. A normal click still opens the link as usual.</p></details>
-    <details><summary>Nothing is underlined on a page. Why?</summary><p>Reload the page once after installing or updating the extension. Then click the toolbar icon - it tells you how many numbers it found. Many load boards show only the company name: select it, right-click and choose "Look up carrier".</p></details>
-    <details><summary>Can I turn the underlining off?</summary><p>Yes - switch off "Highlight on pages" in the toolbar popup. The search box keeps working.</p></details>
+    <details><summary>Nothing is underlined on a page. Why?</summary><p>Reload the page once after installing or updating. Then click the toolbar icon - it tells you how many numbers it found. Many load boards show only the company name: use Option + hover on it.</p></details>
     <details><summary>Can you build something like this for my team?</summary><p>Sure - extensions, bots and automations are what I do. <a href="#contact" style="color:var(--accent)">Tell me what slows you down</a>.</p></details>
   </div>
 </div></section>
